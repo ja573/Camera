@@ -39,4 +39,16 @@ public class CameraTest {
 
         verify(memoryCard).write(eq(new byte[]{123}), any());
     }
+
+    @Test
+    public void pressingShutterWithPowerOffDoesNothing(){
+        Camera underTest = new Camera(sensor, memoryCard);
+        given(sensor.readData()).willReturn(new byte[]{123});
+
+        underTest.powerOff();
+
+        underTest.pressShutter();
+
+        verify(memoryCard).write(eq(null), any());
+    }
 }
