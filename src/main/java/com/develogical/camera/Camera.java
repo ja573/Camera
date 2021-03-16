@@ -3,13 +3,15 @@ package com.develogical.camera;
 public class Camera {
 
     Sensor sensor;
+    MemoryCard memoryCard;
 
-    public Camera(Sensor sensor) {
+    public Camera(Sensor sensor, MemoryCard memoryCard) {
         this.sensor = sensor;
+        this.memoryCard = memoryCard;
     }
 
     public void pressShutter() {
-        // not implemented
+        this.memoryCard.write(this.sensor.readData(), null);
     }
 
     public void powerOn() {
@@ -17,7 +19,7 @@ public class Camera {
     }
 
     public void powerOff() {
-       // not implemented
+        sensor.powerDown();
     }
 }
 
