@@ -49,6 +49,6 @@ public class CameraTest {
 
         underTest.pressShutter();
 
-        verify(memoryCard).write(eq(null), any());
+        verify(memoryCard, never()).write(eq(null), any());
     }
 }
