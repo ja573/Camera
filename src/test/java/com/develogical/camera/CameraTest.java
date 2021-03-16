@@ -63,4 +63,16 @@ public class CameraTest {
         underTest.powerOff();
         verify(sensor, never()).powerDown();
     }
+
+    @Test
+    public void powerDownCameraAfterWritingComplete(){
+        Camera underTest = new Camera(sensor, memoryCard);
+        underTest.powerOn();
+        underTest.pressShutter();
+        underTest.powerOff();
+        ArgumentCaptor<WriteCompleteListener> writeCompleteListenerArgumentCaptor = ArgumentCaptor.forClass(WriteCompleteListener.class);
+        verify(memoryCard).write(any(), writeCompleteListenerArgumentCaptor.capture());
+        writeCompleteListenerArgumentCaptor.getValue().writeComplete();
+        verify(sensor).powerDown();
+    }
 }
