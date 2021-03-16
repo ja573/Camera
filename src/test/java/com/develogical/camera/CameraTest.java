@@ -1,5 +1,8 @@
 package com.develogical.camera;
 
+import org.junit.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.core.Is.*;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -57,13 +60,7 @@ public class CameraTest {
         Camera underTest = new Camera(sensor, memoryCard);
         underTest.powerOn();
         underTest.pressShutter();
-
         underTest.powerOff();
-
-        assert
-
-
-
-
+        verify(sensor, never()).powerDown();
     }
 }

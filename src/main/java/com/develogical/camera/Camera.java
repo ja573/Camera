@@ -3,18 +3,22 @@ package com.develogical.camera;
 public class Camera {
 
     boolean isOn;
+    boolean isWriting;
     Sensor sensor;
     MemoryCard memoryCard;
+    WriteCompleteListener writeCompleteListener;
 
     public Camera(Sensor sensor, MemoryCard memoryCard) {
         this.sensor = sensor;
         this.memoryCard = memoryCard;
         this.isOn = false;
+        this.isWriting = false;
     }
 
     public void pressShutter() {
         if (this.isOn) {
-            this.memoryCard.write(this.sensor.readData(), null);
+            this.isWriting = true;
+            this.memoryCard.write(this.sensor.readData(), this.writeCompleteListener);
         }
     }
 
@@ -24,8 +28,10 @@ public class Camera {
     }
 
     public void powerOff() {
-        sensor.powerDown();
-        this.isOn = false;
+        if (!this.isWriting) {
+            sensor.powerDown();
+            this.isOn = false;
+        }
     }
 }
 
