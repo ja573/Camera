@@ -6,7 +6,6 @@ public class Camera {
     boolean isWriting;
     Sensor sensor;
     MemoryCard memoryCard;
-    WriteCompleteListener writeCompleteListener;
 
     public Camera(Sensor sensor, MemoryCard memoryCard) {
         this.sensor = sensor;
@@ -18,7 +17,7 @@ public class Camera {
     public void pressShutter() {
         if (this.isOn) {
             this.isWriting = true;
-            this.memoryCard.write(this.sensor.readData(), this.writeCompleteListener);
+            this.memoryCard.write(this.sensor.readData(), null);
         }
     }
 
