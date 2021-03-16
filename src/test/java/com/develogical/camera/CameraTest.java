@@ -51,4 +51,19 @@ public class CameraTest {
 
         verify(memoryCard, never()).write(eq(null), any());
     }
+
+    @Test
+    public void switchingCameraOffWhileWritingDoesNotPowerDownSensor(){
+        Camera underTest = new Camera(sensor, memoryCard);
+        underTest.powerOn();
+        underTest.pressShutter();
+
+        underTest.powerOff();
+
+        assert
+
+
+
+
+    }
 }
