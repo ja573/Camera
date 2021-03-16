@@ -17,7 +17,10 @@ public class Camera {
     public void pressShutter() {
         if (this.isOn) {
             this.isWriting = true;
-            this.memoryCard.write(this.sensor.readData(), null);
+            this.memoryCard.write(this.sensor.readData(), () -> {
+                this.isWriting = false;
+                this.powerOff();
+            });
         }
     }
 
